@@ -125,9 +125,6 @@
                             Tiket Travel
                         </button>
 
-                        <button class="flex-1 py-5 bg-slate-100 text-slate-700 font-bold">
-                            Rental Mobil
-                        </button>
 
                     </div>
 
@@ -227,4 +224,3 @@
 
 </body>
 </html>
-```

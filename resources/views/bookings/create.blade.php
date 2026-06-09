@@ -419,4 +419,3 @@ fetch('/car/{{ $car->id }}/unavailable-dates')
 
 </body>
 </html>
-```

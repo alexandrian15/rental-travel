@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\GoogleController;
 
 
 
@@ -87,3 +87,65 @@ Route::get(
     '/booking/{booking}/pdf',
     [BookingController::class,'downloadPdf']
 )->name('booking.pdf');
+
+Route::middleware(['auth','admin'])->group(function () {
+
+    Route::get('/cars/create', [CarController::class,'create'])
+        ->name('cars.create');
+
+    Route::post('/cars', [CarController::class,'store'])
+        ->name('cars.store');
+
+    Route::delete('/cars/{car}', [CarController::class,'destroy'])
+        ->name('cars.destroy');
+
+});
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/booking/{car}', [BookingController::class,'create'])
+        ->name('booking.create');
+
+    Route::post('/booking', [BookingController::class,'store'])
+        ->name('booking.store');
+
+});
+
+Route::middleware(['auth','admin'])->group(function () {
+
+    Route::get('/cars/create',
+        [CarController::class,'create'])
+        ->name('cars.create');
+
+    Route::post('/cars',
+        [CarController::class,'store'])
+        ->name('cars.store');
+
+    Route::get('/cars/{car}/edit',
+        [CarController::class,'edit'])
+        ->name('cars.edit');
+
+    Route::put('/cars/{car}',
+        [CarController::class,'update'])
+        ->name('cars.update');
+
+    Route::delete('/cars/{car}',
+        [CarController::class,'destroy'])
+        ->name('cars.destroy');
+
+});
+
+Route::middleware(['auth','admin'])->group(function () {
+
+    Route::resource('cars', CarController::class)
+        ->except(['index','show']);
+
+});
+
+
+
+
+Route::get('/auth/google', [GoogleController::class, 'redirect'])
+    ->name('google.login');
+
+Route::get('/auth/google/callback', [GoogleController::class, 'callback']);

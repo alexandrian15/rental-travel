@@ -10,6 +10,7 @@
         "azuyalabs/yasumi": "^2.11",
         "barryvdh/laravel-dompdf": "^3.1",
         "laravel/framework": "^13.8",
+        "laravel/socialite": "^5.27",
         "laravel/tinker": "^3.0",
         "laravolt/indonesia": "^0.41.0",
         "midtrans/midtrans-php": "^2.6",
