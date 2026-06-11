@@ -19,15 +19,21 @@
     font-family:'Poppins',sans-serif;
 }
 
+html,
+body{
+    overflow-x:hidden;
+}
+
 body{
     background:#f3f4f6;
     min-height:100vh;
-    padding:40px 20px;
 }
 
 .container{
-    max-width:1100px;
+    max-width:1200px;
     margin:auto;
+    width:100%;
+    padding:0 15px;
 }
 
 .booking-card{
@@ -36,13 +42,31 @@ body{
     overflow:hidden;
     box-shadow:0 15px 40px rgba(0,0,0,.08);
     display:grid;
-    grid-template-columns:420px 1fr;
+    grid-template-columns:1fr 1.2fr;
+    width:100%;
+}
+
+.car-section,
+.form-section{
+    min-width:0;
 }
 
 .car-section{
     background:#111827;
     color:white;
     padding:30px;
+}
+
+@media(max-width:1200px){
+    .booking-card{
+        grid-template-columns:1fr 1fr;
+    }
+    .car-section{
+        padding:25px;
+    }
+    .form-section{
+        padding:30px;
+    }
 }
 
 .car-image{
@@ -161,6 +185,8 @@ body{
     background:#b91c1c;
 }
 
+
+
 .alert{
     background:#dcfce7;
     color:#166534;
@@ -175,21 +201,44 @@ body{
     margin-top:5px;
 }
 
-@media(max-width:900px){
-
-.booking-card{
-    grid-template-columns:1fr;
+@media(max-width:768px){
+    .booking-card{
+        grid-template-columns:1fr;
+    }
+    .car-section{
+        text-align:center;
+        padding:25px;
+    }
+    .form-section{
+        padding:25px;
+    }
+    .form-section h1{
+        font-size:28px;
+    }
 }
 
-.car-section{
-    text-align:center;
-}
-
+/* Additional small-screen tweaks */
+@media (max-width:640px){
+    .container{padding:12px}
+    .booking-card{border-radius:18px}
+    .car-section{padding:18px}
+    .car-image{height:200px}
+    .car-title{font-size:20px}
+    .car-price{font-size:18px}
+    .form-section{padding:20px}
+    .form-section h1{font-size:28px}
+    .form-control{padding:12px}
+    .summary-card{padding:12px}
+    .summary-title{font-size:16px}
+    .summary-total{font-size:20px}
+    .checkout-btn{padding:12px;font-size:15px}
 }
 
 </style>
 </head>
 <body>
+
+@include('partials.navbar')
 
 <div class="container">
 
@@ -236,7 +285,7 @@ body{
     {{-- KANAN --}}
     <div class="form-section">
 
-        <h1>Booking Mobil</h1>
+            <h1>Booking Mobil</h1>
 
         <form
             action="{{ route('bookings.store',$car->id) }}"

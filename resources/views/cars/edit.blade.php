@@ -10,18 +10,20 @@
 
 <body class="bg-slate-100 min-h-screen">
 
-<div class="max-w-5xl mx-auto py-12 px-6">
+@include('partials.navbar')
+
+<div class="max-w-5xl mx-auto py-12 md:py-16 px-4 md:px-6 lg:px-8">
 
     <!-- HEADER -->
-    <div class="flex justify-between items-center mb-10">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
 
         <div>
 
-            <h1 class="text-5xl font-black text-slate-800">
+            <h1 class="text-3xl md:text-5xl font-black text-slate-800">
                 Edit Armada
             </h1>
 
-            <p class="text-slate-500 mt-2">
+            <p class="text-slate-500 mt-2 text-sm md:text-base">
                 Update data kendaraan rental
             </p>
 
@@ -41,12 +43,12 @@
         <div class="grid md:grid-cols-2">
 
             <!-- IMAGE -->
-            <div class="bg-slate-200 p-8 flex items-center justify-center">
+            <div class="bg-slate-200 p-4 md:p-6 lg:p-8 flex items-center justify-center">
 
                 @if($car->gambar)
 
                 <img src="{{ asset('storage/' . $car->gambar) }}"
-                     class="rounded-3xl shadow-2xl h-[450px] w-full object-cover">
+                     class="rounded-3xl shadow-2xl h-64 md:h-[450px] w-full object-cover">
 
                 @else
 
@@ -63,7 +65,7 @@
             </div>
 
             <!-- FORM -->
-            <div class="p-10">
+            <div class="p-6 md:p-10">
 
                 <form action="{{ route('cars.update', $car->id) }}"
                       method="POST"

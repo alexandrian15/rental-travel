@@ -12,18 +12,20 @@
 </head>
 <body class="bg-gradient-to-br from-slate-100 to-slate-200">
 
-<div class="min-h-screen flex items-center justify-center p-6">
+@include('partials.navbar')
 
-    <div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden">
+<div class="min-h-screen flex items-center justify-center p-4 md:p-6">
+
+    <div class="max-w-2xl w-full bg-white rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden">
 
         <!-- Header -->
-        <div class="bg-gradient-to-r from-green-600 via-emerald-500 to-green-500 text-white p-8 text-center">
+        <div class="bg-gradient-to-r from-green-600 via-emerald-500 to-green-500 text-white p-6 md:p-8 text-center">
 
             <div class="w-24 h-24 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-5">
                 <i class="fa-solid fa-circle-check text-6xl"></i>
             </div>
 
-            <h1 class="text-3xl font-bold">
+            <h1 class="text-2xl md:text-3xl font-bold">
                 Pembayaran Berhasil
             </h1>
 
@@ -34,7 +36,7 @@
         </div>
 
         <!-- Content -->
-        <div class="p-8">
+        <div class="p-6 md:p-8">
 
             <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
 

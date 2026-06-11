@@ -8,67 +8,12 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-slate-100">
+<body class="bg-slate-100 overflow-x-hidden">
 
-<!-- TOP BAR -->
-<div class="bg-white text-sm py-2 border-b">
-
-    <div class="max-w-7xl mx-auto flex justify-end gap-10 px-6 text-slate-600">
-
-        <p>Email:
-            admin@rentaltravel.com
-        </p>
-
-        <p>Customer Service:
-            0812-3456-7890
-        </p>
-
-    </div>
-
-</div>
-
-<!-- NAVBAR -->
-<nav class="bg-gradient-to-r from-slate-900 via-red-900 to-red-700 text-white shadow-xl">
-
-    <div class="max-w-7xl mx-auto px-6">
-
-        <div class="flex justify-between items-center py-5">
-
-            <!-- LOGO -->
-            <div>
-
-                <h1 class="text-4xl font-black tracking-wide">
-                    CLIFT<span class="text-red-500">TRAVELINDO</span>
-                </h1>
-
-                <p class="text-sm text-slate-300">
-                    Antar Kota & Rental Mobil
-                </p>
-
-            </div>
-
-            <!-- MENU -->
-            <div class="hidden md:flex gap-8 font-semibold">
-
-               <a href="{{ url('/') }}">Beranda</a> <a href="{{ route('rental.mobil') }}"> Rental Mobil </a> 
-               <a href="{{ url('/tiket-travel') }}"> Tiket Travel </a> 
-               <a href="{{ url('/promo') }}"> Promo </a> 
-               <a href="{{ url('/tentang-kami') }}"> Tentang Kami </a>
-
-<a href="{{ route('login') }}" class="hover:text-red-400 transition"> Login 
-
-</a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</nav>
+@include('partials.navbar')
 
 <!-- HERO -->
-<section class="relative min-h-screen bg-black overflow-hidden">
+<section class="relative w-full min-h-screen bg-black overflow-hidden">
 
     <!-- BACKGROUND IMAGE -->
     <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070"
@@ -78,14 +23,15 @@
     <div class="absolute inset-0 bg-black/50"></div>
 
     <!-- CONTENT -->
-    <div class="relative max-w-7xl mx-auto px-6 py-20">
+    <div class="relative max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-20">
 
-        <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div class="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
 
             <!-- LEFT -->
             <div class="text-white">
 
-                <h1 class="text-6xl font-black leading-tight">
+
+                <h1 class="text-4xl md:text-6xl font-black leading-tight">
 
                     PESAN RENTAL & TRAVEL
                     DENGAN MUDAH

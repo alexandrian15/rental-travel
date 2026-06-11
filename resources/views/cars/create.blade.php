@@ -10,16 +10,18 @@
 
 <body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 min-h-screen">
 
-<div class="max-w-4xl mx-auto py-12 px-6">
+@include('partials.navbar')
+
+<div class="max-w-5xl mx-auto py-12 md:py-16 px-4 md:px-6 lg:px-8">
 
     <!-- HEADER -->
-    <div class="mb-10">
+    <div class="mb-10 md:mb-16">
 
-        <h1 class="text-5xl font-black text-white">
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white">
             Tambah Armada Rental
         </h1>
 
-        <p class="text-slate-300 mt-3 text-lg">
+        <p class="text-slate-300 mt-3 text-sm md:text-lg">
             Tambahkan mobil baru ke sistem rental & travel
         </p>
 
@@ -31,9 +33,9 @@
         <div class="grid md:grid-cols-2">
 
             <!-- LEFT -->
-            <div class="bg-gradient-to-br from-indigo-700 to-slate-900 p-10 text-white">
+            <div class="bg-gradient-to-br from-indigo-700 to-slate-900 p-6 md:p-8 lg:p-10 text-white flex flex-col justify-center">
 
-                <h2 class="text-4xl font-black leading-tight">
+                <h2 class="text-2xl md:text-4xl font-black leading-tight">
                     Sistem Informasi Rental Mobil & Travel
                 </h2>
 
@@ -62,7 +64,7 @@
             </div>
 
             <!-- RIGHT -->
-            <div class="p-10">
+            <div class="p-6 md:p-10">
 
                 <form action="{{ route('cars.store') }}"
                       method="POST"

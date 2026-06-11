@@ -14,23 +14,25 @@ class GoogleController extends Controller
     }
 
     public function callback()
-    {
-        $googleUser = Socialite::driver('google')->user();
+{
+    $googleUser = Socialite::driver('google')
+                    ->stateless()
+                    ->user();
 
-        $user = User::updateOrCreate(
-            [
-                'email' => $googleUser->email,
-            ],
-            [
-                'name' => $googleUser->name,
-                'google_id' => $googleUser->id,
-                'role' => 'customer',
-                'password' => bcrypt(uniqid()),
-            ]
-        );
+    $user = User::updateOrCreate(
+        [
+            'email' => $googleUser->email,
+        ],
+        [
+            'name'      => $googleUser->name,
+            'google_id' => $googleUser->id,
+            'role'      => 'customer',
+            'password'  => bcrypt(uniqid()),
+        ]
+    );
 
-        Auth::login($user);
+    Auth::login($user);
 
-        return redirect('/rental-mobil');
-    }
+    return redirect('/rental-mobil');
+}
 }
