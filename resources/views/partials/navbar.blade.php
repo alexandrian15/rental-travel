@@ -16,25 +16,6 @@
 </div>
 
 <style>
-    .back-fixed{
-        position:fixed;
-        top:18px;
-        left:18px;
-        z-index:50;
-        background:#dc2626;
-        color:#fff;
-        padding:10px 16px;
-        border-radius:14px;
-        border:none;
-        font-weight:700;
-        cursor:pointer;
-    }
-
-    .back-fixed:hover{background:#b91c1c}
-
-    @media (max-width:640px){
-        .back-fixed{top:12px;left:12px;padding:8px 12px;border-radius:10px}
-    }
 
     .mobile-menu{display:none;width:100%;left:0;box-sizing:border-box}
     .mobile-menu.show{display:block;position:relative;z-index:60;width:100%;}
@@ -48,9 +29,6 @@
         <div class="flex items-center justify-between py-5 gap-4">
 
             <div class="min-w-0 flex-1 flex items-center gap-4">
-                @if(!request()->is('/'))
-                    <button onclick="history.back()" class="back-fixed">Kembali</button>
-                @endif
 
                 <!-- LOGO -->
                 <div class="min-w-0">

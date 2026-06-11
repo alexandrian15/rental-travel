@@ -44,6 +44,7 @@ body{
     display:grid;
     grid-template-columns:1fr 1.2fr;
     width:100%;
+    margin-top:40px;
 }
 
 .car-section,
@@ -234,13 +235,37 @@ body{
     .checkout-btn{padding:12px;font-size:15px}
 }
 
+.back-fixed{
+        position:;
+        top:18px;
+        left:18px;
+        z-index:50;
+        background:#dc2626;
+        color:#fff;
+        padding:10px 16px;
+        border-radius:14px;
+        border:none;
+        font-weight:700;
+        cursor:pointer;
+    }
+
+    .back-fixed:hover{background:#b91c1c}
+
+    @media (max-width:640px){
+        .back-fixed{top:12px;left:12px;padding:8px 12px;border-radius:10px}
+    }
+    
 </style>
 </head>
 <body>
 
-@include('partials.navbar')
+
 
 <div class="container">
+    @if(!request()->is('/'))
+                    <button onclick="history.back()" class="back-fixed">Kembali</button>
+                @endif
+
 
 @if(session('success'))
 <div class="alert">
@@ -464,6 +489,9 @@ fetch('/car/{{ $car->id }}/unavailable-dates')
     });
 
 });
+    document.getElementById('mobileToggler')?.addEventListener('click', function(){
+        document.getElementById('mobileMenu').classList.toggle('show');
+    });
 </script>
 
 </body>
