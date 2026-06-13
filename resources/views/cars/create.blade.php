@@ -27,6 +27,17 @@
 
     </div>
 
+    <!-- ERROR VALIDATION -->
+    @if ($errors->any())
+        <div class="bg-red-100 text-red-700 p-4 rounded-2xl mb-6">
+            <ul class="list-disc pl-5">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <!-- CARD -->
     <div class="bg-white rounded-[30px] shadow-2xl overflow-hidden">
 
@@ -75,85 +86,80 @@
 
                     <!-- Nama Mobil -->
                     <div>
-
                         <label class="block text-slate-700 font-bold mb-2">
                             Nama Mobil
                         </label>
 
                         <input type="text"
                                name="nama_mobil"
+                               value="{{ old('nama_mobil') }}"
                                placeholder="Contoh: Toyota Alphard"
                                class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-300 outline-none">
-
                     </div>
 
                     <!-- Plat -->
                     <div>
-
                         <label class="block text-slate-700 font-bold mb-2">
                             Plat Nomor
                         </label>
 
                         <input type="text"
                                name="plat_nomor"
+                               value="{{ old('plat_nomor') }}"
                                placeholder="N 1234 AB"
-                               class="w-full border border-slate-300 rounded-2xl px-5 py-4">
-
+                               class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-300 outline-none">
                     </div>
 
                     <!-- Harga -->
                     <div>
-
                         <label class="block text-slate-700 font-bold mb-2">
                             Harga Dasar
                         </label>
 
                         <input type="number"
                                name="harga_dasar"
+                               value="{{ old('harga_dasar') }}"
                                placeholder="500000"
-                               class="w-full border border-slate-300 rounded-2xl px-5 py-4">
-
+                               class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-300 outline-none">
                     </div>
 
                     <!-- Gambar -->
                     <div>
-
                         <label class="block text-slate-700 font-bold mb-2">
                             Upload Gambar
                         </label>
 
                         <input type="file"
                                name="gambar"
-                               class="w-full border border-slate-300 rounded-2xl px-5 py-4">
-
+                               class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-300 outline-none">
                     </div>
 
                     <!-- Status -->
                     <div>
-
                         <label class="block text-slate-700 font-bold mb-2">
                             Status
                         </label>
 
                         <select name="status"
-                                class="w-full border border-slate-300 rounded-2xl px-5 py-4">
+                                class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-300 outline-none">
 
-                            <option value="tersedia">
+                            <option value="tersedia"
+                                {{ old('status') == 'tersedia' ? 'selected' : '' }}>
                                 Tersedia
                             </option>
 
-                            <option value="disewa">
+                            <option value="disewa"
+                                {{ old('status') == 'disewa' ? 'selected' : '' }}>
                                 Disewa
                             </option>
 
                         </select>
-
                     </div>
 
                     <!-- BUTTON -->
                     <div class="flex gap-4 pt-4">
 
-                        <a href="{{ route('cars.index') }}"
+                        <a href="{{ route('rental.mobil') }}"
                            class="flex-1 text-center bg-slate-300 hover:bg-slate-400 text-slate-700 py-4 rounded-2xl font-bold transition">
 
                             Kembali

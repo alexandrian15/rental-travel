@@ -28,5 +28,23 @@ class DatabaseSeeder extends Seeder
     'password' => Hash::make('12345678'),
     'role' => 'admin'
 ]);
+
+Travel::create([
+    'asal' => 'Malang',
+    'tujuan' => 'Surabaya',
+    'jam_berangkat' => '07:00',
+    'harga' => 100000,
+    'jumlah_kursi' => 10,
+    'kelas' => 'Executive'
+]);
+
+Travel::create([
+    'asal' => 'Malang',
+    'tujuan' => 'Jakarta',
+    'jam_berangkat' => '18:00',
+    'harga' => 350000,
+    'jumlah_kursi' => 10,
+    'kelas' => 'Executive'
+]);
     }
 }

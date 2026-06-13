@@ -8,6 +8,8 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -313,7 +315,7 @@ body{
             <h1>Booking Mobil</h1>
 
         <form
-            action="{{ route('bookings.store',$car->id) }}"
+            action="{{ route('booking.store',$car->id) }}"
             method="POST">
 
             @csrf
@@ -409,89 +411,53 @@ body{
 const mulai = document.getElementById('tanggal_mulai');
 const selesai = document.getElementById('tanggal_selesai');
 
-async function hitungHarga(){
+function hitungHari() {
 
-    if(!mulai.value || !selesai.value){
-        return;
-    }
+    if (!mulai.value || !selesai.value) return;
 
     let start = new Date(mulai.value);
     let end = new Date(selesai.value);
 
-    let hari =
-        Math.ceil(
-            (end - start) /
-            (1000*60*60*24)
-        ) + 1;
+    let diff = (end - start) / (1000 * 60 * 60 * 24);
 
-    document.getElementById('jumlahHari')
-        .innerText = hari + ' Hari';
-
-    try{
-
-        const response = await fetch(
-            '/booking/hitung/{{ $car->id }}',
-            {
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json',
-                    'X-CSRF-TOKEN':
-                    document.querySelector(
-                        'meta[name="csrf-token"]'
-                    ).content
-                },
-                body:JSON.stringify({
-                    tanggal_mulai: mulai.value,
-                    tanggal_selesai: selesai.value
-                })
-            }
-        );
-
-        const data = await response.json();
-
-        document.getElementById(
-            'totalHarga'
-        ).innerText =
-        'Rp ' +
-        Number(data.harga)
-        .toLocaleString('id-ID');
-
-    }catch(error){
-
-        console.log(error);
-
+    if (diff < 0) {
+        document.getElementById('jumlahHari').innerText = '0 Hari';
+        document.getElementById('totalHarga').innerText = 'Rp 0';
+        return;
     }
 
+    let hari = diff + 1;
+
+    document.getElementById('jumlahHari').innerText = hari + ' Hari';
+
+    fetch('/booking/hitung/{{ $car->id }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({
+            tanggal_mulai: mulai.value,
+            tanggal_selesai: selesai.value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById('totalHarga').innerText =
+            'Rp ' + Number(data.harga).toLocaleString('id-ID');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 }
 
-mulai.addEventListener(
-    'change',
-    hitungHarga
-);
+mulai.addEventListener('change', hitungHari);
+selesai.addEventListener('change', hitungHari);
 
-selesai.addEventListener(
-    'change',
-    hitungHarga
-);
 
-fetch('/car/{{ $car->id }}/unavailable-dates')
-.then(res => res.json())
-.then(dates => {
-
-    flatpickr("#tanggal_mulai", {
-        minDate: "today",
-        disable: dates
-    });
-
-    flatpickr("#tanggal_selesai", {
-        minDate: "today",
-        disable: dates
-    });
-
+document.getElementById('mobileToggler')?.addEventListener('click', function () {
+    document.getElementById('mobileMenu')?.classList.toggle('show');
 });
-    document.getElementById('mobileToggler')?.addEventListener('click', function(){
-        document.getElementById('mobileMenu').classList.toggle('show');
-    });
 </script>
 
 </body>

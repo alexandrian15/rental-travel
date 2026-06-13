@@ -61,7 +61,7 @@
                         </button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="hover:text-red-400 transition">Login</a>
+                    <a href="/auth/google" class="hover:text-red-400 transition">Login</a>
                 @endauth
 
             </div>
@@ -97,7 +97,7 @@
                 <button type="submit" class="w-full bg-red-600 hover:bg-red-700 px-4 py-2 rounded-2xl text-white font-bold">Logout</button>
             </form>
         @else
-            <a href="{{ route('login') }}" class="block font-semibold">Login</a>
+            <a href="/auth/google" class="block font-semibold">Login</a>
         @endauth
     </div>
 </div>

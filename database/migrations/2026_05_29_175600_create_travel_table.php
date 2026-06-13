@@ -13,9 +13,13 @@ return new class extends Migration
     {
 Schema::create('travels', function (Blueprint $table) {
     $table->id();
-    $table->string('kota_asal');
-    $table->string('kota_tujuan');
-    $table->integer('harga_dasar');
+    $table->string('asal');
+    $table->string('tujuan');
+    $table->date('tanggal');
+    $table->time('jam_berangkat');
+    $table->integer('harga');
+    $table->integer('kursi_total');
+    $table->integer('kursi_terisi')->default(0);
     $table->timestamps();
 });
     }
@@ -25,6 +29,6 @@ Schema::create('travels', function (Blueprint $table) {
      */
     public function down(): void
     {
-        Schema::dropIfExists('travel');
+        Schema::dropIfExists('travels');
     }
 };

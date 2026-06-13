@@ -18,7 +18,6 @@
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
 
         <div>
-
             <h1 class="text-3xl md:text-5xl font-black text-slate-800">
                 Edit Armada
             </h1>
@@ -26,12 +25,10 @@
             <p class="text-slate-500 mt-2 text-sm md:text-base">
                 Update data kendaraan rental
             </p>
-
         </div>
 
-        <a href="{{ route('cars.index') }}"
+        <a href="{{ route('rental.mobil') }}"
            class="bg-slate-800 hover:bg-slate-900 text-white px-6 py-4 rounded-2xl font-bold shadow-xl transition">
-
             ← Kembali
         </a>
 
@@ -46,26 +43,29 @@
             <div class="bg-slate-200 p-4 md:p-6 lg:p-8 flex items-center justify-center">
 
                 @if($car->gambar)
-
-                <img src="{{ asset('storage/' . $car->gambar) }}"
-                     class="rounded-3xl shadow-2xl h-64 md:h-[450px] w-full object-cover">
-
+                    <img src="{{ asset('storage/' . $car->gambar) }}"
+                         class="rounded-3xl shadow-2xl h-64 md:h-[450px] w-full object-cover">
                 @else
-
-                <div class="w-full h-[450px] bg-slate-300 rounded-3xl flex items-center justify-center">
-
-                    <span class="text-slate-500 text-xl">
-                        No Image
-                    </span>
-
-                </div>
-
+                    <div class="w-full h-[450px] bg-slate-300 rounded-3xl flex items-center justify-center">
+                        <span class="text-slate-500 text-xl">No Image</span>
+                    </div>
                 @endif
 
             </div>
 
             <!-- FORM -->
             <div class="p-6 md:p-10">
+
+                <!-- ERROR VALIDATION -->
+                @if ($errors->any())
+                    <div class="bg-red-100 text-red-700 p-4 rounded-2xl mb-6">
+                        <ul class="list-disc pl-5">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <form action="{{ route('cars.update', $car->id) }}"
                       method="POST"
@@ -75,88 +75,85 @@
                     @csrf
                     @method('PUT')
 
-                    <!-- Nama -->
+                    <!-- Nama Mobil -->
                     <div>
-
                         <label class="block font-bold text-slate-700 mb-2">
                             Nama Mobil
                         </label>
 
                         <input type="text"
                                name="nama_mobil"
-                               value="{{ $car->nama_mobil }}"
-                               class="w-full border border-slate-300 rounded-2xl px-5 py-4">
-
+                               value="{{ old('nama_mobil', $car->nama_mobil ?? '') }}"
+                               class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-200 focus:border-indigo-500 outline-none">
                     </div>
 
-                    <!-- Plat -->
+                    <!-- Plat Nomor -->
                     <div>
-
                         <label class="block font-bold text-slate-700 mb-2">
                             Plat Nomor
                         </label>
 
                         <input type="text"
                                name="plat_nomor"
-                               value="{{ $car->plat_nomor }}"
-                               class="w-full border border-slate-300 rounded-2xl px-5 py-4">
-
+                               value="{{ old('plat_nomor', $car->plat_nomor ?? '') }}"
+                               class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-200 focus:border-indigo-500 outline-none">
                     </div>
 
                     <!-- Harga -->
                     <div>
-
                         <label class="block font-bold text-slate-700 mb-2">
                             Harga Dasar
                         </label>
 
                         <input type="number"
                                name="harga_dasar"
-                               value="{{ $car->harga_dasar }}"
-                               class="w-full border border-slate-300 rounded-2xl px-5 py-4">
-
+                               value="{{ old('harga_dasar', $car->harga_dasar ?? '') }}"
+                               class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-200 focus:border-indigo-500 outline-none">
                     </div>
 
-                    <!-- Upload -->
+                    <!-- Upload Gambar -->
                     <div>
-
                         <label class="block font-bold text-slate-700 mb-2">
                             Ganti Gambar
                         </label>
 
                         <input type="file"
                                name="gambar"
-                               class="w-full border border-slate-300 rounded-2xl px-5 py-4">
-
+                               class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-200 focus:border-indigo-500 outline-none">
                     </div>
 
                     <!-- Status -->
                     <div>
-
                         <label class="block font-bold text-slate-700 mb-2">
                             Status
                         </label>
 
                         <select name="status"
-                                class="w-full border border-slate-300 rounded-2xl px-5 py-4">
+                                class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-200 focus:border-indigo-500 outline-none">
 
                             <option value="tersedia"
-                                {{ $car->status == 'tersedia' ? 'selected' : '' }}>
-
+                                {{ old('status', $car->status) == 'tersedia' ? 'selected' : '' }}>
                                 Tersedia
-
                             </option>
 
                             <option value="disewa"
-                                {{ $car->status == 'disewa' ? 'selected' : '' }}>
-
+                                {{ old('status', $car->status) == 'disewa' ? 'selected' : '' }}>
                                 Disewa
-
                             </option>
 
                         </select>
-
                     </div>
+                    <!-- Stok -->
+<div>
+    <label class="block font-bold text-slate-700 mb-2">
+        Stok Mobil
+    </label>
+
+    <input type="number"
+           name="stok"
+           value="{{ old('stok', $car->stok ?? '') }}"
+           class="w-full border border-slate-300 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-indigo-200 focus:border-indigo-500 outline-none">
+</div>
 
                     <!-- BUTTON -->
                     <button type="submit"

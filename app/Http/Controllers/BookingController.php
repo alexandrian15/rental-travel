@@ -26,7 +26,7 @@ class BookingController extends Controller
         $request->validate([
             'nama_pemesan'     => 'required',
             'tanggal_mulai'    => 'required|date',
-            'tanggal_selesai'  => 'required|date|after:tanggal_mulai',
+            'tanggal_selesai'  => 'required|date|after_or_equal:tanggal_mulai',
         ]);
 
         $totalHarga = $pricing->calculate(
@@ -221,4 +221,35 @@ public function downloadPdf(Booking $booking)
     {
         //
     }
+
+    public function booking(Request $request, Travel $travel)
+{
+    $request->validate([
+        'nama_pemesan' => 'required',
+        'jumlah_kursi' => 'required|integer|min:1',
+    ]);
+
+    DB::transaction(function () use ($request, $travel) {
+
+        // lock data biar tidak double booking
+        $travel = Travel::where('id', $travel->id)->lockForUpdate()->first();
+
+        $sisa = $travel->kursi_total - $travel->kursi_terisi;
+
+        if ($request->jumlah_kursi > $sisa) {
+            abort(400, 'Kursi tidak cukup');
+        }
+
+        TravelBooking::create([
+            'travel_id' => $travel->id,
+            'nama_pemesan' => $request->nama_pemesan,
+            'jumlah_kursi' => $request->jumlah_kursi,
+            'tanggal' => $travel->tanggal,
+        ]);
+
+        $travel->increment('kursi_terisi', $request->jumlah_kursi);
+    });
+
+    return redirect()->route('travel.success');
+}
 }
